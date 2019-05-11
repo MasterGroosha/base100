@@ -6,8 +6,8 @@
 def encode(data):
     """
     Encodes text to emoji
-    :param data: encoded bytearray for original text
-    :return: array of bytes of encoded text
+    :param data: encoded bytes array for original text
+    :return: bytes array of encoded text
     """
     out = [240, 159, 0, 0]*len(data)
     for i, b in enumerate(data):
@@ -19,8 +19,8 @@ def encode(data):
 def decode(data):
     """
     Decodes emoji to text
-    :param data: encoded bytesarray for emoji
-    :return: array of bytes of decoded text
+    :param data: encoded bytes array for emoji
+    :return: bytes array of decoded text
     """
     if len(data) % 4 != 0:
         raise Exception('Length of string should be divisible by 4')
