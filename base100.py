@@ -3,12 +3,15 @@
 # For more information, please refer to <http://unlicense.org/>
 
 
-def encode(data):
+def encode(data, encoding="utf-8"):
     """
     Encodes text to emoji
-    :param data: encoded bytes array for original text
+    :param data: Original text as bytes array or plaintext
+    :param encoding: (Optional) encoding if {data} passed as plaintext
     :return: bytes array of encoded text
     """
+    if isinstance(data, str):
+        data = data.encode(encoding)
     out = [240, 159, 0, 0]*len(data)
     for i, b in enumerate(data):
         out[4*i+2] = (b + 55) // 64 + 143
@@ -16,12 +19,15 @@ def encode(data):
     return bytes(out)
 
 
-def decode(data):
+def decode(data, encoding="utf-8"):
     """
     Decodes emoji to text
-    :param data: encoded bytes array for emoji
+    :param data: Encoded text in form of emoji as bytes array or plaintext
+    :param encoding: (Optional) encoding if {data} passed as plaintext
     :return: bytes array of decoded text
     """
+    if isinstance(data, str):
+        data = data.encode(encoding)
     if len(data) % 4 != 0:
         raise Exception('Length of string should be divisible by 4')
     tmp = 0
